@@ -11,7 +11,7 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 /**
- * Format currency values
+ * Format currency fucntin
  * @param value The numeric value to format
  * @param options Optional Intl.NumberFormat options to override defaults
  */
@@ -25,7 +25,7 @@ export function formatCurrency( value: number,
 }
 
 /**
- * Format percentage values
+ * Format percentage function
  * @param value - The decimal value to format (0.1 = 10%)
  * @param options - Optional Intl.NumberFormat options to override defaults
  */
