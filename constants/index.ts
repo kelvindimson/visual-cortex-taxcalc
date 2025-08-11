@@ -218,3 +218,6 @@ export const DEFAULT_VALUES = {
   includesMedicareLevy: true,
   residentMonths: 6
 };
+
+export const DAYS_IN_YEAR = 365;
+export const NUMBER_OF_MONTHS = 12;

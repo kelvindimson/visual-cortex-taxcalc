@@ -1,21 +1,12 @@
-import { TAX_CONFIGS } from '@/constants';
+import { NUMBER_OF_MONTHS, TAX_CONFIGS, VALIDATION_LIMITS } from '@/constants';
 import { roundToDecimals } from '@/lib/utils';
-
-/**
- * Core tax calculation engine for Australian income tax
- * Implements ATO tax rates and Medicare Levy calculations
- */
-
+import { DAYS_IN_YEAR } from '@/constants';
 /**
  * Calculate base tax based on income and brackets
  * @param income - Taxable income
  * @param brackets - Tax brackets for the year and residency status
  */
-function calculateBaseTax(income: number, brackets: TaxBracket[]): {
-  tax: number;
-  marginalRate: number;
-  breakdown: TaxBreakdownItem[];
-} {
+function calculateBaseTax(income: number, brackets: TaxBracket[]): { tax: number; marginalRate: number; breakdown: TaxBreakdownItem[] } {
   let tax = 0;
   let marginalRate = 0;
   const breakdown: TaxBreakdownItem[] = [];
@@ -73,10 +64,7 @@ function calculateBaseTax(income: number, brackets: TaxBracket[]): {
  * @param income - Taxable income
  * @param config - Medicare Levy configuration
  */
-function calculateMedicareLevy(
-  income: number,
-  config: TaxYearConfig['medicareLevy']
-): number {
+function calculateMedicareLevy( income: number, config: TaxYearConfig['medicareLevy'] ): number {
   // Below threshold - no levy
   if (income <= config.threshold.single) {
     return 0;
@@ -168,12 +156,9 @@ export function calculateTax(input: TaxCalculationInput): TaxCalculationResult {
  * @param input - Tax calculation parameters
  * @param residentDays - Number of days as resident
  */
-export function calculatePartYearTax(
-  input: TaxCalculationInput,
-  residentDays: number = 183
-): TaxCalculationResult {
-  const daysInYear = 365;
-  const residentPortion = residentDays / daysInYear;
+export function calculatePartYearTax(input: TaxCalculationInput, residentDays: number): TaxCalculationResult {
+  
+  const residentPortion = residentDays / DAYS_IN_YEAR;
   const nonResidentPortion = 1 - residentPortion;
 
   // Calculate as resident
@@ -196,8 +181,8 @@ export function calculatePartYearTax(
   const effectiveRate = input.income > 0 ? totalTax / input.income : 0;
 
   // Calculate months from days
-  const residentMonths = Math.round((residentDays / daysInYear) * 12);
-  const nonResidentMonths = 12 - residentMonths;
+  const residentMonths = Math.round((residentDays / DAYS_IN_YEAR) * NUMBER_OF_MONTHS);
+  const nonResidentMonths = NUMBER_OF_MONTHS - residentMonths;
 
   return {
     income: input.income,
@@ -226,7 +211,7 @@ export function calculatePartYearTax(
  * @param income - Income to validate
  */
 export function isValidIncome(income: number): boolean {
-  return income >= 0 && income <= 999999999 && Number.isFinite(income);
+  return income >= VALIDATION_LIMITS.MIN_INCOME && income <= VALIDATION_LIMITS.MAX_INCOME && Number.isFinite(income);
 }
 
 /**
