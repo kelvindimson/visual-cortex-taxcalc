@@ -11,7 +11,7 @@ interface Props {
   errors: FieldError[];
   onIncomeChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onIncomeBlur: () => void;
-  onKeyPress: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+  onKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => void;
   onFieldUpdate: <K extends keyof TaxCalculationInput>(
     field: K,
     value: TaxCalculationInput[K]
@@ -19,7 +19,7 @@ interface Props {
   getFieldError: (field: keyof TaxCalculationInput) => string | undefined;
 }
 
-export function TaxCalculatorForm({ formData, incomeInput, onIncomeChange, onIncomeBlur, onKeyPress, onFieldUpdate, getFieldError} : Props) {
+export function TaxCalculatorForm({ formData, incomeInput, onIncomeChange, onIncomeBlur, onKeyDown, onFieldUpdate, getFieldError} : Props) {
   return (
     <div className="p-6 space-y-6">
       <p className="text-sm text-gray-600">All fields marked with * are mandatory</p>
@@ -54,11 +54,7 @@ export function TaxCalculatorForm({ formData, incomeInput, onIncomeChange, onInc
       {/* Income Input */}
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-2">
-          Enter your total{' '}
-          <span className="text-blue-500 cursor-help" title="Your total taxable income before deductions">
-            taxable income
-          </span>
-          {' '}for the full income year *
+          Enter your total taxable income for the full income year *
         </label>
         <div className="flex items-stretch">
           <span className="inline-flex items-center px-4 bg-gray-50 border border-r-0 border-gray-300 rounded-l-lg text-gray-600">
@@ -70,7 +66,7 @@ export function TaxCalculatorForm({ formData, incomeInput, onIncomeChange, onInc
             value={incomeInput}
             onChange={onIncomeChange}
             onBlur={onIncomeBlur}
-            onKeyPress={onKeyPress}
+            onKeyDown={onKeyDown}
             placeholder="0.00"
             className={cn(
               "flex-1 px-4 py-3 border rounded-r-lg focus:outline-none focus:ring focus:ring-blue-500",

@@ -15,6 +15,7 @@ This calculator helps you estimate your Australian income tax based on current A
 ### Requirements
 - Node.js 20 or higher
 - npm, yarn, or pnpm
+- Docker (optional, for containerized deployment)
 
 ### Installation
 
@@ -40,22 +41,16 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 ### Run tests
 
 ```bash
-npm run test
+npm test
 ```
 
 ## Project structure
 
 ```
-├── app/                  # Next.js app directory
+├── app/                 # Next.js app directory
 │   ├── page.tsx         # Home page
-│   └── api/             # API routes
 ├── components/          # React components
-│   ├── TaxCalculator.tsx
-│   ├── TaxCalculatorForm.tsx
-│   └── TaxResultsSection.tsx
 ├── lib/                 # Core logic
-│   ├── taxCalculator.ts
-│   └── utils.ts
 ├── constants/           # Tax rates and configurations
 ├── models/              # Data validation schemas
 └── hooks/               # Custom React hooks
@@ -67,6 +62,7 @@ npm run test
 - **Real-time validation**: Input validation with helpful error messages
 - **Responsive design**: Works on desktop and mobile devices
 - **Type-safe**: Full TypeScript coverage
+- **Production-ready**: Includes Docker configuration
 
 ## Technology stack
 
@@ -75,9 +71,11 @@ npm run test
 - **Styling**: Tailwind CSS
 - **Validation**: Zod
 - **Testing**: Jest
-- **Deployment**: Docker, Kubernetes
+- **Containerization**: Docker
 
 ## Docker
+
+### Using Docker
 
 Build the Docker image:
 ```bash
@@ -89,25 +87,48 @@ Run the container:
 docker run -p 3000:3000 tax-calculator
 ```
 
-Or use docker-compose:
+Stop the container:
 ```bash
-docker-compose up prod
+docker stop $(docker ps -q --filter ancestor=tax-calculator)
 ```
 
-## Deployment
+### Using Docker Compose
 
-### Deploy to Kubernetes
-
-Update the image registry in `k8s/deployment.yaml`, then:
-
+Build and run:
 ```bash
-kubectl apply -f k8s/deployment.yaml
-kubectl apply -f k8s/ingress.yaml
+docker compose up --build
 ```
+
+Run in background:
+```bash
+docker compose up -d
+```
+
+Stop:
+```bash
+docker compose down
+```
+
+## Configuration
 
 ### Tax rates
 
 Tax rates are configured in `constants/index.ts`. Update these when new rates are announced by the ATO.
+
+## Testing
+
+The project includes comprehensive tests for tax calculations:
+
+```bash
+# Run all tests
+npm test
+
+# Run tests in watch mode
+npm run test:watch
+
+# Check test coverage
+npm run test:coverage
+```
 
 ## Contributing
 
@@ -116,21 +137,6 @@ Tax rates are configured in `constants/index.ts`. Update these when new rates ar
 3. Commit your changes (`git commit -m 'Add new feature'`)
 4. Push to the branch (`git push origin feature/new-feature`)
 5. Open a pull request
-
-## Testing
-
-The project includes comprehensive tests for tax calculations:
-
-```bash
-# Run all tests
-npm run test
-
-# Run tests in watch mode
-npm run test:watch
-
-# Check test coverage
-npm run test:coverage
-```
 
 ## License
 
@@ -147,5 +153,3 @@ For issues or questions, open an issue on GitHub or contact the maintainers.
 ## Links
 
 - [Australian Taxation Office](https://www.ato.gov.au)
-- [Tax rates and thresholds](https://www.ato.gov.au/rates/individual-income-tax-rates/)
-- [Medicare Levy](https://www.ato.gov.au/individuals-and-families/medicare-and-private-health-insurance/medicare-levy)

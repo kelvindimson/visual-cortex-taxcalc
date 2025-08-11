@@ -174,7 +174,7 @@ export function TaxCalculator() {
         errors={errors}
         onIncomeChange={handleIncomeChange}
         onIncomeBlur={handleIncomeBlur}
-        onKeyPress={handleKeyPress}
+        onKeyDown={handleKeyPress}
         onFieldUpdate={updateField}
         getFieldError={getFieldError}
       />
