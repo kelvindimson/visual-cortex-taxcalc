@@ -1,12 +1,4 @@
-/**
- * Australian Tax Rates and Configurations
- * Source: Australian Taxation Office (ATO)
- * Last Updated: 2025
- */
-
-/**
- * Tax configurations for each financial year
- */
+// Constants for tax calculator application
 export const TAX_CONFIGS: Record<TaxYear, TaxYearConfig> = {
   '2022-23': {
     year: '2022-23',
@@ -150,14 +142,10 @@ export const TAX_CONFIGS: Record<TaxYear, TaxYearConfig> = {
   }
 };
 
-/**
- * Available tax years for selection
- */
+// Constants for tax years
 export const TAX_YEARS: TaxYear[] = ['2022-23', '2023-24', '2024-25', '2025-26'];
 
-/**
- * Residency status options
- */
+// Constants for residency status
 export const RESIDENCY_OPTIONS: Array<{
   value: ResidencyStatus;
   label: string;
@@ -180,9 +168,7 @@ export const RESIDENCY_OPTIONS: Array<{
   }
 ];
 
-/**
- * Currency formatting options
- */
+// Constants for formatting
 export const CURRENCY_FORMAT: Intl.NumberFormatOptions = {
   style: 'currency',
   currency: 'AUD',
@@ -190,27 +176,21 @@ export const CURRENCY_FORMAT: Intl.NumberFormatOptions = {
   maximumFractionDigits: 2
 };
 
-/**
- * Percentage formatting options
- */
+// Constants for percentage formatting
 export const PERCENTAGE_FORMAT: Intl.NumberFormatOptions = {
   style: 'percent',
   minimumFractionDigits: 2,
   maximumFractionDigits: 2
 };
 
-/**
- * Input validation limits
- */
+// Constants for validation limits
 export const VALIDATION_LIMITS = {
   MIN_INCOME: 0.01,
   MAX_INCOME: 9999999999,
   DECIMAL_PLACES: 2
 };
 
-/**
- * Default form values
- */
+// Default values for the tax calculator form
 export const DEFAULT_VALUES = {
   income: 0,
   taxYear: '2024-25' as TaxYear,

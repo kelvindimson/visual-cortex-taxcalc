@@ -3,11 +3,6 @@ import { calculateTax, calculatePartYearTax } from '@/lib/taxCalculator';
 import { validateTaxInput, validateField } from '@/models/taxCalculatorSchema';
 import { DEFAULT_VALUES } from '@/constants';
 
-/**
- * Custom hook for managing tax calculation state and logic
- * Provides a clean interface for the TaxCalculator component
- */
-
 interface UseTaxCalculationReturn {
   // State
   formData: TaxCalculationInput;
@@ -40,9 +35,8 @@ export function useTaxCalculation(): UseTaxCalculationReturn {
   const [isCalculating, setIsCalculating] = useState(false);
   const [hasCalculated, setHasCalculated] = useState(false);
 
-  /**
-   * Validate a single field
-   */
+
+  //Validate a single field
   const validateSingleField = useCallback(
     <K extends keyof TaxCalculationInput>(
       field: K,
@@ -54,9 +48,7 @@ export function useTaxCalculation(): UseTaxCalculationReturn {
     []
   );
 
-  /**
-   * Update a form field with validation
-   */
+  // Update a field in the form data
   const updateField = useCallback(
     <K extends keyof TaxCalculationInput>(
       field: K,
@@ -82,9 +74,7 @@ export function useTaxCalculation(): UseTaxCalculationReturn {
     [formData.income, hasCalculated]
   );
 
-  /**
-   * Perform tax calculation
-   */
+  // Calculate tax based on current form data
   const calculate = useCallback(() => {
     // Validate input
     const validation = validateTaxInput(formData);
@@ -125,9 +115,7 @@ export function useTaxCalculation(): UseTaxCalculationReturn {
     }, 300); // Small delay for better UX
   }, [formData]);
 
-  /**
-   * Reset form to default values
-   */
+  // Handle resett 
   const reset = useCallback(() => {
     setFormData(DEFAULT_VALUES);
     setResult(null);
@@ -136,9 +124,7 @@ export function useTaxCalculation(): UseTaxCalculationReturn {
     setHasCalculated(false);
   }, []);
 
-  /**
-   * Clear all errors
-   */
+  // Clear all errors
   const clearErrors = useCallback(() => {
     setErrors([]);
   }, []);
