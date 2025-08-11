@@ -215,7 +215,7 @@ export const DEFAULT_VALUES = {
   income: 0,
   taxYear: '2024-25' as TaxYear,
   residencyStatus: 'resident' as ResidencyStatus,
-  includesMedicareLevy: true,
+  includesMedicareLevy: false,
   residentMonths: 6
 };
 

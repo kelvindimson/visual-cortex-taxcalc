@@ -18,13 +18,13 @@ export function TaxBreakdown({ result }: TaxBreakdownProps) {
           <span className="font-medium">{formatCurrency(result.income)}</span>
         </div>
         
-        {/* Base Tax */}
+
         <div className="flex justify-between text-sm">
           <span className="text-gray-600">Base Tax</span>
           <span className="font-medium">{formatCurrency(result.baseTax)}</span>
         </div>
         
-        {/* Medicare Levy */}
+
         {result.medicareLevy > 0 && (
           <div className="flex justify-between text-sm">
             <span className="text-gray-600">Medicare Levy (2%)</span>
@@ -32,23 +32,22 @@ export function TaxBreakdown({ result }: TaxBreakdownProps) {
           </div>
         )}
         
-        {/* Total Tax Payable */}
         <div className="pt-2 mt-2 border-t border-gray-300">
           <div className="flex justify-between">
             <span className="font-semibold text-gray-900 break-after-all break-all">
               Total Tax Payable
             </span>
-            <span className="font-bold text-lg text-red-600">
+            <span className="font-bold text-lg text-red-700">
               {formatCurrency(result.totalTax)}
             </span>
           </div>
         </div>
         
         {/* Take Home Pay */}
-        <div className="pt-2">
+        <div className="pt-4">
           <div className="flex justify-between">
             <span className="font-semibold text-gray-900">Take Home Pay</span>
-            <span className="font-bold text-lg text-green-600 break-after-all break-all">
+            <span className="font-bold text-lg text-green-700 break-after-all break-all">
               {formatCurrency(result.netIncome)}
             </span>
           </div>
@@ -56,7 +55,7 @@ export function TaxBreakdown({ result }: TaxBreakdownProps) {
       </div>
       
       {/* Additional Info */}
-      <div className="mt-4 pt-4 border-t border-gray-300 text-sm text-gray-600">
+      <div className="mt-4 pt-4 border-t border-gray-300 text-sm text-gray-600 text-center" >
         <p>
           Marginal Tax Rate:{' '}
           <span className="font-medium text-gray-900">

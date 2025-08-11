@@ -34,7 +34,7 @@ export function TaxCalculatorForm({ formData, incomeInput, onIncomeChange, onInc
             value={formData.taxYear}
             onChange={(e) => onFieldUpdate('taxYear', e.target.value as TaxYear)}
             className={cn(
-              "w-full px-4 py-3 pr-10 border rounded-lg appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500",
+              "w-full px-4 py-3 pr-10 border rounded-lg appearance-none focus:outline-none focus:ring focus:ring-blue-500",
               getFieldError('taxYear') ? 'border-red-500' : 'border-gray-300'
             )}
           >
@@ -55,7 +55,7 @@ export function TaxCalculatorForm({ formData, incomeInput, onIncomeChange, onInc
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-2">
           Enter your total{' '}
-          <span className="text-blue-600 underline cursor-help" title="Your total taxable income before deductions">
+          <span className="text-blue-500 cursor-help" title="Your total taxable income before deductions">
             taxable income
           </span>
           {' '}for the full income year *
@@ -73,7 +73,7 @@ export function TaxCalculatorForm({ formData, incomeInput, onIncomeChange, onInc
             onKeyPress={onKeyPress}
             placeholder="0.00"
             className={cn(
-              "flex-1 px-4 py-3 border rounded-r-lg focus:outline-none focus:ring-2 focus:ring-blue-500",
+              "flex-1 px-4 py-3 border rounded-r-lg focus:outline-none focus:ring focus:ring-blue-500",
               getFieldError('income') ? 'border-red-500' : 'border-gray-300'
             )}
           />
@@ -122,7 +122,7 @@ export function TaxCalculatorForm({ formData, incomeInput, onIncomeChange, onInc
         
         {/* Part-year resident months selector */}
         {formData.residencyStatus === 'part-year' && (
-          <div className="mt-4 p-4 bg-amber-50 border border-amber-200 rounded-lg">
+          <div className="mt-4 rounded-lg">
             <label className="block text-sm font-medium text-gray-700 mb-2">
               How many months were you an Australian resident? *
             </label>
@@ -130,7 +130,7 @@ export function TaxCalculatorForm({ formData, incomeInput, onIncomeChange, onInc
               <select
                 value={formData.residentMonths || 6}
                 onChange={(e) => onFieldUpdate('residentMonths', parseInt(e.target.value))}
-                className="w-full px-4 py-3 pr-10 border border-amber-300 rounded-lg appearance-none focus:outline-none focus:ring-2 focus:ring-amber-500 bg-white"
+                className="w-full px-4 py-3 pr-10 border border-gray-300 rounded-lg appearance-none focus:outline-none focus:ring focus:ring-blue-500 bg-white"
               >
                 {[...Array(11)].map((_, i) => {
                   const months = i + 1;
@@ -141,27 +141,29 @@ export function TaxCalculatorForm({ formData, incomeInput, onIncomeChange, onInc
                   );
                 })}
               </select>
-              <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-amber-600 pointer-events-none" />
+              <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-300 pointer-events-none" />
             </div>
-            <p className="text-xs text-amber-700 mt-2">
+            <p className="text-xs text-amber-700 my-4">
               The remaining {12 - (formData.residentMonths || 6)} month{12 - (formData.residentMonths || 6) !== 1 ? 's' : ''} will be calculated as non-resident
             </p>
           </div>
         )}
         
         <div className="mt-3 p-3 bg-blue-50 rounded-lg">
-          <p className="text-sm text-blue-700 flex items-start">
-            <HelpCircle className="w-4 h-4 mr-2 mt-0.5 flex-shrink-0" />
-            For more details on residency status refer to{' '}
+          <div className="text-sm text-blue-900 flex flex-col md:flex-row items-start gap-2">
+            <div className='flex items-center'>
+              <HelpCircle className="w-4 h-4 mr-2 mt-0.5 flex-shrink-0" />
+              For more details on residency status refer to{' '}
+            </div>
             <a 
-              href="https://www.ato.gov.au/individuals/coming-to-australia-or-going-overseas/work-out-your-tax-residency-status/"
+              href="https://www.ato.gov.au"
               target="_blank"
               rel="noopener noreferrer"
-              className="ml-1 underline font-medium hover:text-blue-800"
+              className="ml-1 underline font-medium hover:text-blue-900"
             >
               Work out your residency status for tax purposes
             </a>
-          </p>
+          </div>
         </div>
       </div>
 
