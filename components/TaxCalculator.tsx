@@ -106,19 +106,33 @@ export function TaxCalculator() {
     }
   };
 
-  // Handle key press to restrict input
-  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    const char = e.key;
+  // Handle key down to restrict input - FIXED FOR MOBILE
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    const key = e.key;
     const currentValue = incomeInput;
     
+    // Allow control keys (backspace, delete, arrows, etc.)
+    if (
+      key === 'Backspace' || 
+      key === 'Delete' || 
+      key === 'ArrowLeft' || 
+      key === 'ArrowRight' ||
+      key === 'Tab' ||
+      key === 'Enter' ||
+      e.ctrlKey ||
+      e.metaKey
+    ) {
+      return;
+    }
+    
     // Allow numbers and one decimal point
-    if (!/[0-9.]/.test(char)) {
+    if (!/[0-9.]/.test(key)) {
       e.preventDefault();
       return;
     }
     
     // Prevent multiple decimal points
-    if (char === '.' && currentValue.includes('.')) {
+    if (key === '.' && currentValue.includes('.')) {
       e.preventDefault();
       return;
     }
@@ -126,9 +140,14 @@ export function TaxCalculator() {
     // Prevent more than 2 decimal places
     if (currentValue.includes('.')) {
       const decimalPart = currentValue.split('.')[1];
-      if (decimalPart && decimalPart.length >= 2 && e.currentTarget.selectionStart! > currentValue.indexOf('.')) {
-        e.preventDefault();
-        return;
+      const cursorPosition = e.currentTarget.selectionStart || 0;
+      const decimalPosition = currentValue.indexOf('.');
+      
+      if (decimalPart && decimalPart.length >= 2 && cursorPosition > decimalPosition) {
+        // Only prevent if not replacing selected text
+        if (e.currentTarget.selectionStart === e.currentTarget.selectionEnd) {
+          e.preventDefault();
+        }
       }
     }
   };
@@ -174,7 +193,7 @@ export function TaxCalculator() {
         errors={errors}
         onIncomeChange={handleIncomeChange}
         onIncomeBlur={handleIncomeBlur}
-        onKeyDown={handleKeyPress}
+        onKeyDown={handleKeyDown}
         onFieldUpdate={updateField}
         getFieldError={getFieldError}
       />
