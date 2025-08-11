@@ -10,6 +10,8 @@ This calculator helps you estimate your Australian income tax based on current A
 - Medicare Levy calculations
 - Stage 3 tax cuts for 2024-25 onwards
 
+https://github.com/user-attachments/assets/cc1e322d-db9c-4b24-aa2a-7104f7c3aca1
+
 ## Getting started
 
 ### Requirements
